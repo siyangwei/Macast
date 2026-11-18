@@ -101,13 +101,16 @@ class MPVRenderer(Renderer):
     def set_media_url(self, url, start="0"):
         """ data : string
         """
-        options = {'start': start}
+        # NOTE: newer mpv (0.38+) rejects the loadfile option list form
+        # ("loadfile <url> replace start=0") with "invalid parameter",
+        # so the start position / fullscreen hint are applied separately.
+        self.send_command(['loadfile', url, 'replace'])
         player_size = Setting.get(SettingProperty.PlayerSize,
                                   default=SettingProperty.PlayerSize_Normal.value)
         if player_size == SettingProperty.PlayerSize_FullScreen.value:
-            options['fullscreen'] = 'yes'
-        self.send_command(['loadfile', url, 'replace',
-                           ','.join([f'{i}={options[i]}' for i in options])])
+            self.send_command(['set_property', 'fullscreen', 'yes'])
+        if start and str(start) not in ('0', '0.0'):
+            self.send_command(['seek', str(start), 'absolute'])
 
     def set_media_title(self, data):
         """ data : string

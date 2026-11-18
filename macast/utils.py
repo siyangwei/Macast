@@ -188,9 +188,9 @@ class Setting:
             lang = locale.windows_locale[windll.GetUserDefaultUILanguage()]
         else:
             lang = os.environ.get('LANGUAGE')
-            if lang is None:
-                lang = os.environ['LANG']
-            if lang is None:
+            if not lang:
+                lang = os.environ.get('LANG')
+            if not lang:
                 return 'en_US'
             lang = lang.split(':')[0].split('.')[0]
         return lang
