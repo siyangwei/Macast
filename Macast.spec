@@ -21,8 +21,11 @@ a = Analysis(
 _glib_libs = ('libglib-2.0', 'libgobject-2.0', 'libgio-2.0', 'libgmodule-2.0',
               'libgthread-2.0', 'libgirepository', 'libdbusmenu',
               'libmount', 'libblkid', 'libuuid', 'libselinux', 'libseccomp',
-              'libpcre2-8', 'libsystemd', 'libcap', 'libacl', 'liblzma',
-              'libzstd', 'liblz4', 'libgcrypt', 'libgpg-error', 'libudev')
+              'libpcre2-8', 'libsystemd', 'libcap', 'libacl',
+              'libzstd', 'liblz4', 'libgcrypt', 'libgpg-error', 'libudev',
+              # keep liblzma bundled: Pillow's _imaging links it and hardcodes
+              # PyInstaller's renamed copy
+              )
 a.binaries = [b for b in a.binaries
               if not any(lib in b[0] for lib in _glib_libs)]
 
