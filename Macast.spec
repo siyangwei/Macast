@@ -21,7 +21,8 @@ a = Analysis(
 _glib_libs = ('libglib-2.0', 'libgobject-2.0', 'libgio-2.0', 'libgmodule-2.0',
               'libgthread-2.0', 'libgirepository', 'libdbusmenu',
               'libmount', 'libblkid', 'libuuid', 'libselinux', 'libseccomp',
-              'libpcre2-8')
+              'libpcre2-8', 'libsystemd', 'libcap', 'libacl', 'liblzma',
+              'libzstd', 'liblz4', 'libgcrypt', 'libgpg-error', 'libudev')
 a.binaries = [b for b in a.binaries
               if not any(lib in b[0] for lib in _glib_libs)]
 
