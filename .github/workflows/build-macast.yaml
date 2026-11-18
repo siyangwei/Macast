@@ -45,16 +45,7 @@ jobs:
           docker run --rm -v "$(pwd):/src/" xfangfang/build-macast \
               'pip install -r requirements/common.txt && \
               pip install -U pyinstaller && \
-              pyinstaller --noconfirm -F -w \
-                --additional-hooks-dir=. \
-                --add-data="macast/.version:." \
-                --add-data="macast/xml/*:macast/xml" \
-                --add-data="i18n/zh_CN/LC_MESSAGES/*.mo:i18n/zh_CN/LC_MESSAGES" \
-                --add-data="macast/assets/*:macast/assets" \
-                --add-data="macast/assets/fonts/*:macast/assets/fonts" \
-                --exclude-module=tkinter \
-                --distpath="app" \
-              Macast.py'
+              pyinstaller --noconfirm --distpath="app" Macast.spec'
           sudo chown 1000 app/Macast
           cp app/Macast $DIST_AMD64
           mkdir -p dist/DEBIAN dist/usr/bin dist/usr/share/applications dist/usr/share/icons
